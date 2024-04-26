@@ -62,50 +62,6 @@ const closeAddTenantModal = () => {
     navigation.navigate("Login");
   };
 
-  useEffect(() => {
-    // Define the fetchTenants function inside useEffect to avoid defining it on each render
-    const fetchTenants = async () => {
-      try {
-        const token = await SecureStore.getItemAsync('userToken');
-        const response = await axios.get('http://localhost:3000/api/tenants/all', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        console.log(response);
-        if (response.status === 200) {
-          setTenants(response.data.tenants);
-        } else {
-          console.error('Failed to fetch tenants:', response.status);
-        }
-      } catch (error) {
-        console.error('Error fetching tenants:', error);
-      }
-    };
-  
-    fetchTenants();
-  }, []);
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const token = await SecureStore.getItemAsync('userToken');
-        const response = await axios.get('http://localhost:3000/api/properties/all', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          setProperties(response.data.properties); 
-        } else {
-          console.error('Failed to fetch properties:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error fetching properties:', error);
-      }
-    };
-  
-    fetchProperties();
-  }, []);
   
   const upcomingPayments = [
     { tenant: "John Doe", dueDate: "2023-10-01", amount: 500 },
@@ -113,7 +69,6 @@ const closeAddTenantModal = () => {
     { tenant: "Dante Cady", dueDate: "2023-10-01", amount: 500 },
     { tenant: "Omar Santos", dueDate: "2023-10-05", amount: 550 },
     { tenant: "Greg Davis", dueDate: "2023-10-01", amount: 500 },
-    // ... add more upcoming payments data as needed
   ];
 
   const getDaysRemaining = (dueDate) => {
@@ -133,7 +88,7 @@ const closeAddTenantModal = () => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["#43ecf5", "#f7f7f7"]}
+        colors={["#ae52d6", "#f7f7f7"]}
         style={styles.gradientContainer}
       >
         <Text style={styles.welcomeText}>
@@ -326,7 +281,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#0c51a1",
+    color: theme.colors.primary.main
   },
   summaryPage: {
     flex: 1,
@@ -344,7 +299,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   boxName: {
-    color: "black",
+    color: theme.colors.primary.dark,
     marginBottom: 30,
   },
   tenantRow: {
@@ -357,7 +312,7 @@ const styles = StyleSheet.create({
   },
   tenantName: {
     fontSize: 18,
-    color: "black",
+    color: theme.colors.primary.dark
   },
   tenantRent: {
     fontSize: 18,
@@ -385,7 +340,7 @@ const styles = StyleSheet.create({
   },
   paymentAmount: {
     fontSize: 16,
-    color: "#0c51a1",
+    color: theme.colors.primary.dark
   },
   paymentDueDate: {
     fontSize: 12,
@@ -397,10 +352,10 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   viewAll: {
-    color: "#0c51a1",
-    textAlign: "right",
-    marginTop: 5,
+    fontSize: theme.typography.body.fontSize,
+    color: theme.colors.primary.main,
     textDecorationLine: "underline",
+    textAlign: "right"
   },
   welcomeText: {
     fontSize: 24,
