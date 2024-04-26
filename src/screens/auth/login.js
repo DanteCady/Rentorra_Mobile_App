@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     alignSelf: "center",
-    marginBottom: 30,
+    marginBottom: 5,
   },
   title: {
     fontSize: theme.typography.header.fontSize,
