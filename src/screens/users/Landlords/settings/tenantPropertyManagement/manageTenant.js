@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../../../../../styles/theme";
@@ -14,7 +13,7 @@ import ModifyTenantModal from "../../../../../components/composite/Tenants/landl
 
 const ManageTenantsPage = ({ navigation }) => {
   const [tenants, setTenants] = useState([]);
-  const [selectedTenants, setSelectedTenants] = useState([]);
+  const [selectedTenant, setSelectedTenant] = useState(null);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isModifyModalVisible, setIsModifyModalVisible] = useState(false);
   const [selectionMode, setSelectionMode] = useState(false);
@@ -34,83 +33,74 @@ const ManageTenantsPage = ({ navigation }) => {
       tenant.id === modifiedTenant.id ? modifiedTenant : tenant
     );
     setTenants(updatedTenants);
-    setIsModifyModalVisible(false);  // Close the modal after updating
-    if (selectionMode) {
-      handleCancelSelection();  // Reset selection mode if active
-    }
   };
 
-  const handleSelectTenant = (tenant) => {
-    if (selectedTenants.includes(tenant)) {
-      setSelectedTenants(selectedTenants.filter(t => t !== tenant));
-    } else {
-      setSelectedTenants([...selectedTenants, tenant]);
-    }
+  const openModifyModal = (tenant) => {
+    setSelectedTenant(tenant);
+    setIsModifyModalVisible(true);
   };
 
   const handleLongPress = (tenant) => {
     if (!selectionMode) {
       setSelectionMode(true);
-      setSelectedTenants([tenant]);
+      setSelectedTenant(tenant);
     } else {
-      handleSelectTenant(tenant);
+      // additional logic if needed for deselecting or handling multiple selections
     }
   };
 
-  const deleteSelectedTenants = () => {
-    setTenants(tenants.filter(tenant => !selectedTenants.includes(tenant)));
-    setSelectedTenants([]);
-    setSelectionMode(false);  // Exit selection mode after deleting
-  };
-
-  const handleBack = () => {
-    if (selectionMode) {
-      handleCancelSelection();
-    } else {
-      navigation.goBack();
+  const deleteSelectedTenant = () => {
+    if (selectedTenant) {
+      setTenants(tenants.filter(tenant => tenant.id !== selectedTenant.id));
+      setSelectedTenant(null);
+      setSelectionMode(false);
     }
   };
 
   const handleCancelSelection = () => {
     setSelectionMode(false);
-    setSelectedTenants([]);
-  };
-
-  const handleEditTenant = () => {
-    if (selectedTenants.length === 1) { // Only allow editing if one tenant is selected
-      setIsModifyModalVisible(true);
-      setModifyTenant(selectedTenants[0]);
-    } else {
-      Alert.alert("Edit Error", "Please select exactly one tenant to edit.");
-    }
+    setSelectedTenant(null);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Icon name="arrow-left" size={theme.spacing.large} color={theme.colors.grey.dark} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Manage Tenants</Text>
-        {selectionMode && (
-          <View style={styles.selectionOptions}>
-            <TouchableOpacity style={styles.optionButton} onPress={handleEditTenant}>
-              <Icon name="pencil" size={24} color={theme.colors.primary.main} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton} onPress={deleteSelectedTenants}>
-              <Icon name="delete" size={24} color="red" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton} onPress={handleCancelSelection}>
-              <Icon name="close" size={24} color={theme.colors.primary.dark} />
-            </TouchableOpacity>
-          </View>
-        )}
       </View>
 
       <TouchableOpacity style={styles.addButton} onPress={() => setIsAddModalVisible(true)}>
         <Text style={[theme.typography.body, styles.addButtonLabel]}>+ Add Tenant</Text>
         <Icon name="plus-circle" size={theme.spacing.medium} color={theme.colors.primary.dark} />
       </TouchableOpacity>
+
+      {selectionMode && (
+        <View style={styles.selectionOptions}>
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={() => openModifyModal(selectedTenant)}
+          >
+            <Icon name="pencil" size={24} color={theme.colors.primary.main} />
+            <Text style={styles.optionText}>Modify</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={deleteSelectedTenant}
+          >
+            <Icon name="delete" size={24} color="red" />
+            <Text style={styles.optionText}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={handleCancelSelection}
+          >
+            <Icon name="close" size={24} color={theme.colors.primary.dark} />
+            <Text style={styles.optionText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       <FlatList
         data={tenants}
@@ -135,12 +125,12 @@ const ManageTenantsPage = ({ navigation }) => {
         />
       )}
 
-      {isModifyModalVisible && (
+      {isModifyModalVisible && selectedTenant && (
         <ModifyTenantModal
           visible={isModifyModalVisible}
           onClose={() => setIsModifyModalVisible(false)}
           onModify={handleModifyTenant}
-          tenant={selectedTenants[0]} // Assumes only one tenant is selected for modification
+          tenant={selectedTenant}
         />
       )}
     </View>
@@ -160,17 +150,18 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
     borderBottomWidth: 0.5,
     borderBottomColor: theme.colors.grey.light,
-    position: "relative",
+    position: "relative", // To allow absolute positioning
     top: 30,
   },
   backButton: {
-    position: "absolute",
-    left: 10,
+    position: "absolute", // Position the back button absolutely
+    left: 10, // Adjust the left position as needed
   },
   headerText: {
+    flex: 1, // Allow the text to take the remaining space
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: "center",
+    fontWeight: "bold",
+    textAlign: "center", // Center the text horizontally
   },
   addButton: {
     flexDirection: "row",
@@ -197,8 +188,12 @@ const styles = StyleSheet.create({
   },
   selectionOptions: {
     flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: theme.spacing.medium,
+    paddingHorizontal: theme.spacing.medium,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.grey.lighter,
+    backgroundColor: theme.colors.grey.light,
   },
   optionButton: {
     marginHorizontal: 10,
