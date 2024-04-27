@@ -56,7 +56,7 @@ const settingsData = [
     subItems: [
       { title: "Manage Tenants", route: "ManageTenant" },
       { title: "Property Listings" },
-      { title: "Access Permissions" },
+      // { title: "Access Permissions" },
     ],
   },
   {
