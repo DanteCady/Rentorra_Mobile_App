@@ -57,6 +57,11 @@ const ManageTenantsPage = ({ navigation }) => {
     }
   };
 
+  // Function to navigate back to the Landlord Settings page
+  const handleBack = () => {
+    navigation.navigate("LandlordSettingsPage");
+  };
+
   const handleCancelSelection = () => {
     setSelectionMode(false);
     setSelectedTenant(null);
@@ -65,7 +70,7 @@ const ManageTenantsPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <Icon name="arrow-left" size={theme.spacing.large} color={theme.colors.grey.dark} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Manage Tenants</Text>
