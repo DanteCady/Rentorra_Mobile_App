@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import * as SecureStore from 'expo-secure-store'; // Import SecureStore from Expo
 import { Camera, CameraType } from 'expo-camera';
+import theme from "../../../../../styles/theme";
 
 const AddTenantModal = ({ isVisible, onClose, onSave }) => {
   const [properties, setProperties] = useState([]);
@@ -104,18 +105,21 @@ const AddTenantModal = ({ isVisible, onClose, onSave }) => {
           value={firstName}
           onChangeText={setFirstName}
           style={styles.input}
+          placeholderTextColor="grey"
         />
         <TextInput
           placeholder="Last Name"
           value={lastName}
           onChangeText={setLastName}
           style={styles.input}
+          placeholderTextColor="grey"
         />
         <TextInput
           placeholder='Tenant ID'
           value={tenantId}
           onChangeText={settenantId}
           style={styles.input}
+          placeholderTextColor="grey"
         />
         <Text style={styles.pickerLabel}>Assigned Property:</Text>
         <Picker
@@ -149,15 +153,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   input: {
-    marginBottom: 10,
-    paddingHorizontal: 15,
+    width: "100%",
     height: 40,
-    borderColor: 'gray',
+    borderColor: theme.colors.primary.dark,
     borderWidth: 1,
+    borderRadius: theme.spacing.small,
+    paddingHorizontal: 10,
+    marginBottom: theme.spacing.medium,
   },
   pickerLabel: {
     fontSize: 16,
-    color: 'black',
+    color: theme.colors.primary.dark,
     marginBottom: 10,
   },
   picker: {
