@@ -9,29 +9,28 @@ import QuickAddButtons from "../../../components/composite/Dashboard/landlord/qu
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../../../styles/theme";
 import axios from "axios";
-import * as SecureStore from 'expo-secure-store'; 
-import AddPropertyModal from "../../../components/composite/Dashboard/landlord/modals/quickAddProperty"
+import * as SecureStore from "expo-secure-store";
+import AddPropertyModal from "../../../components/composite/Dashboard/landlord/modals/quickAddProperty";
 import AddTenantModal from "../../../components/composite/Dashboard/landlord/modals/quickAddTenant";
 
 const LandlordDashboard = ({ route, navigation }) => {
-
   const [showQuickAddButtons, setShowQuickAddButtons] = useState(false);
   const { userName } = route.params || {};
-  const [isAddPropertyModalVisible, setAddPropertyModalVisible] = useState(false);
+  const [isAddPropertyModalVisible, setAddPropertyModalVisible] =
+    useState(false);
   const [isAddTenantModalVisible, setAddTenantModalVisible] = useState(false);
-  const [properties, setProperties] = useState([]); 
+  const [properties, setProperties] = useState([]);
   const [tenants, setTenants] = useState([]);
 
+  // Function to open the AddTenantModal
+  const openAddTenantModal = () => {
+    setAddTenantModalVisible(true);
+  };
 
-// Function to open the AddTenantModal
-const openAddTenantModal = () => {
-  setAddTenantModalVisible(true);
-};
-
-// Function to close the AddTenantModal
-const closeAddTenantModal = () => {
-  setAddTenantModalVisible(false);
-};
+  // Function to close the AddTenantModal
+  const closeAddTenantModal = () => {
+    setAddTenantModalVisible(false);
+  };
 
   // Function to open the AddPropertyModal
   const openAddPropertyModal = () => {
@@ -62,7 +61,6 @@ const closeAddTenantModal = () => {
     navigation.navigate("Login");
   };
 
-  
   const upcomingPayments = [
     { tenant: "John Doe", dueDate: "2023-10-01", amount: 500 },
     { tenant: "Jane Smith", dueDate: "2023-10-05", amount: 550 },
@@ -79,10 +77,9 @@ const closeAddTenantModal = () => {
     return differenceInDays;
   };
 
-
   const totalRentExpected = tenants.reduce(
     (sum, tenant) => sum + tenant.rent,
-    0
+    0,
   );
 
   return (
@@ -161,36 +158,40 @@ const closeAddTenantModal = () => {
         <View style={styles.content}>
           <Text style={styles.boxName}>Tenants</Text>
           <View style={styles.tenantBox}>
-  <Card.Content>
-    {tenants.slice(0, 5).map((tenant, index) => (
-      <View key={index} style={styles.tenantRow}>
-        <Text style={styles.tenantName}>{tenant.firstName} {tenant.lastName}</Text>
-      </View>
-    ))}
-  </Card.Content> 
-</View>
+            <Card.Content>
+              {tenants.slice(0, 5).map((tenant, index) => (
+                <View key={index} style={styles.tenantRow}>
+                  <Text style={styles.tenantName}>
+                    {tenant.firstName} {tenant.lastName}
+                  </Text>
+                </View>
+              ))}
+            </Card.Content>
+          </View>
 
           <TouchableOpacity onPress={() => navigation.navigate("AllTenants")}>
             <Text style={styles.viewAll}>View All</Text>
           </TouchableOpacity>
         </View>
         {/* Properties Section */}
-<View style={styles.content}>
-  <Text style={styles.boxName}>Properties</Text>
-  <View style={styles.tenantBox}>
-    <Card.Content>
-      {properties.slice(0, 5).map((property, index) => (
-        <View key={index} style={styles.tenantRow}>
-          <Text style={styles.tenantName}>{property.address}</Text>
-          {/* Display additional property details here as needed */}
+        <View style={styles.content}>
+          <Text style={styles.boxName}>Properties</Text>
+          <View style={styles.tenantBox}>
+            <Card.Content>
+              {properties.slice(0, 5).map((property, index) => (
+                <View key={index} style={styles.tenantRow}>
+                  <Text style={styles.tenantName}>{property.address}</Text>
+                  {/* Display additional property details here as needed */}
+                </View>
+              ))}
+            </Card.Content>
+          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AllProperties")}
+          >
+            <Text style={styles.viewAll}>View All</Text>
+          </TouchableOpacity>
         </View>
-      ))}
-    </Card.Content>
-  </View>
-  <TouchableOpacity onPress={() => navigation.navigate("AllProperties")}>
-    <Text style={styles.viewAll}>View All</Text>
-  </TouchableOpacity>
-</View>
 
         <View style={styles.content}>
           <Text style={styles.boxName}>Upcoming Payments</Text>
@@ -216,7 +217,7 @@ const closeAddTenantModal = () => {
             <Text style={styles.viewAll}>View All</Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* Calendar */}
         <View style={styles.content}>
           <Text style={styles.boxName}>Calendar</Text>
@@ -232,9 +233,12 @@ const closeAddTenantModal = () => {
       />
 
       {/* Conditionally render QuickAddButtons component */}
-   {/* QuickAddButtons component with the openAddPropertyModal function passed as a prop */}
-   {showQuickAddButtons && (
-        <QuickAddButtons onAddProperty={openAddPropertyModal} onAddTenant={openAddTenantModal} />
+      {/* QuickAddButtons component with the openAddPropertyModal function passed as a prop */}
+      {showQuickAddButtons && (
+        <QuickAddButtons
+          onAddProperty={openAddPropertyModal}
+          onAddTenant={openAddTenantModal}
+        />
       )}
 
       {/* AddPropertyModal component */}
@@ -242,16 +246,16 @@ const closeAddTenantModal = () => {
         isVisible={isAddPropertyModalVisible}
         onClose={closeAddPropertyModal}
         onSave={handleSaveProperty}
-      />    
+      />
 
-       {/* AddTenantModal component */}
-       <AddTenantModal
+      {/* AddTenantModal component */}
+      <AddTenantModal
         isVisible={isAddTenantModalVisible}
         onClose={closeAddTenantModal}
         // onSave={handleSaveTenant}
         properties={properties} // Pass the properties for the picker
       />
-      </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -281,7 +285,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 10,
-    color: theme.colors.primary.main
+    color: theme.colors.primary.main,
   },
   summaryPage: {
     flex: 1,
@@ -312,7 +316,7 @@ const styles = StyleSheet.create({
   },
   tenantName: {
     fontSize: 18,
-    color: theme.colors.primary.dark
+    color: theme.colors.primary.dark,
   },
   tenantRent: {
     fontSize: 18,
@@ -340,7 +344,7 @@ const styles = StyleSheet.create({
   },
   paymentAmount: {
     fontSize: 16,
-    color: theme.colors.primary.dark
+    color: theme.colors.primary.dark,
   },
   paymentDueDate: {
     fontSize: 12,
@@ -355,7 +359,7 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.body.fontSize,
     color: theme.colors.primary.main,
     textDecorationLine: "underline",
-    textAlign: "right"
+    textAlign: "right",
   },
   welcomeText: {
     fontSize: 24,
