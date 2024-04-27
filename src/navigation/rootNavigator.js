@@ -2,7 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import LoginScreen from '../screens/auth/login';
+import LoginScreen from '../screens/auth/login_copy';
 import SignUpScreen from '../screens/auth/signUp';
 import LandlordDashboard from '../screens/users/Landlords/landlordDashboard';
 import TenantsSettingsPage from "../screens/users/Tenants/settings/settings";
@@ -35,9 +35,9 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-        <Stack.Navigator initialRouteName="PaymentPortal" options={{ presentation: 'modal' }}>
-        <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Navigator initialRouteName="LoginScreen" options={{ presentation: 'modal' }}>
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordSettingsPage" component={LandlordSettingsPage} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordDashboard" component={LandlordDashboard} options={{ headerShown: false }} />
         <Stack.Screen name="Notifications" component={NotificationPage} options={{ headerShown: false }} />

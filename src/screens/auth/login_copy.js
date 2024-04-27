@@ -18,14 +18,34 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showSecretMenu, setShowSecretMenu] = useState(false);
+  const [holdTimer, setHoldTimer] = useState(null);
+
+  const handlePressIn = () => {
+    // Start a timer when the user presses down
+    const timer = setTimeout(() => {
+      setShowSecretMenu(true);
+    }, 3000); // 3000 milliseconds = 3 seconds
+    setHoldTimer(timer);
+  };
+
+  const handlePressOut = () => {
+    // Clear the timer when the user releases
+    clearTimeout(holdTimer);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.loginContainer}>
-        <Image
-          source={require("../../assets/Rentorra_R_500_Transparent.png")}
-          style={styles.logo}
-        />
+        <TouchableOpacity
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+        >
+          <Image
+            source={require("../../assets/Rentorra_R_500_Transparent.png")}
+            style={styles.logo}
+          />
+        </TouchableOpacity>
         <Text style={styles.title}>Rentorra</Text>
         <Text style={styles.subtitle}>Property Management</Text>
         <TextInput
@@ -53,24 +73,16 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Button
             mode="contained"
-            // onPress={handleLogin}
             style={styles.loginButton}
             labelStyle={styles.buttonText}
           >
             Login
           </Button>
-          <TouchableOpacity>
-            {/* <Image
-              source={require("../../assets/Face_ID_logo.svg.png")}
-              style={styles.faceID}
-              // onProgress={handleBiometric}
-            /> */}
-          </TouchableOpacity>
         </View>
         <View style={styles.footerContainer}>
-          <TouchableOpacity style={styles.signUpContainer} >
+          <TouchableOpacity style={styles.signUpContainer}>
             <Text style={styles.signUpText}>Don't have an account? </Text>
-            <Text style={styles.signUpLink}>Sign up</Text>
+            <Text style={styles.signUpLink}onPress={() => navigation.navigate("SignUpScreen")}>Sign up</Text>
           </TouchableOpacity>
           <Text style={styles.version}>Version 1.0.0</Text>
           <TouchableOpacity>
@@ -80,12 +92,28 @@ const LoginScreen = ({ navigation }) => {
             <Text style={styles.termsLink}>Terms of Use</Text>
           </TouchableOpacity>
         </View>
+        {showSecretMenu && (
+        <View style={styles.secretMenu}>
+          <TouchableOpacity onPress={() => setShowSecretMenu(false)} style={styles.secretMenuItem}>
+            <Text style={styles.secretMenuText}>Close Secret Menu</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUpScreen")} style={styles.secretMenuItem}>
+            <Text style={styles.secretMenuText}>Sign Up Screen</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("LandlordDashboard")} style={styles.secretMenuItem}>
+            <Text style={styles.secretMenuText}>Landlord Dashboard</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("TenantDashboard")} style={styles.secretMenuItem}>
+            <Text style={styles.secretMenuText}>Tenant Dashboard</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       </View>
     </SafeAreaView>
   );
 };
 
-// Styles for the LoginScreen component
+// Additional styles for the secret menu
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -185,5 +213,36 @@ const styles = StyleSheet.create({
     color: theme.colors.primary.main,
     textDecorationLine: "underline",
   },
+  secretMenu: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    right: 20,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    zIndex: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  secretMenuItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd', // subtle separation between items
+  },
+  secretMenuText: {
+    fontSize: theme.typography.body.fontSize,
+    color: theme.colors.primary.dark,
+  },
 });
+
 export default LoginScreen;

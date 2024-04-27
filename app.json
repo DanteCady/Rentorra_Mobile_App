@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "CazziOS",
-    "slug": "CazziOS",
+    "name": "RentorraiOS",
+    "slug": "rentorraios",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./src/assets/icon.png",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      // "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
+      "icon": "./src/assets/icon.png",
       "infoPlist": {
-        "NSFaceIDUsageDescription": "This app requires Face ID to authenticate."
-      }      
+        "NSFaceIDUsageDescription": "Allow $(Rentorra) to use Face ID."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,16 +40,21 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow $(Cazza) to use Face ID."
+          "faceIDPermission": "Allow $(Rentorra) to use Face ID."
         }
       ],
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(Cazza) to access your camera"
-          // "microphonePermission": "Allow $(Cazza) to access your microphone"
+          "cameraPermission": "Allow $(Rentorra) to access your camera"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5b2d43c9-9c18-46a3-9fce-7d4638883f00"
+      }
+    },
+    "owner": "dantecady"
   }
 }
