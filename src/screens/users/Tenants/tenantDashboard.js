@@ -32,7 +32,10 @@ const TenantDashboard = ({ route, navigation }) => {
   const handleLogout = () => {
     navigation.navigate("Login");
   };
-
+  const handlePayPortal = () => {
+    navigation.navigate("PayPortalPage"); // Adjust the route as necessary
+  };
+  
   // Function to handle opening the maintenance request modal
   const handleOpenModal = () => {
     setIsModifyModalVisible(true);
@@ -125,9 +128,21 @@ const TenantDashboard = ({ route, navigation }) => {
         </View>
 
         {/* Button to submit the modification */}
+        <View style={styles.buttonContainer}>
+        {/* Maintenance Request Button */}
         <TouchableOpacity style={styles.addButton} onPress={handleOpenModal}>
-          <Text style={styles.addButtonLabel}>Maintenance Request</Text>
+            <Icon name="wrench" size={24} color={theme.colors.white} />
+            <Text style={styles.addButtonLabel}>Request</Text>
         </TouchableOpacity>
+
+        {/* Pay Portal Button */}
+        <TouchableOpacity style={styles.addButton} onPress={handlePayPortal}>
+            <Icon name="credit-card" size={24} color={theme.colors.white} />
+            <Text style={styles.addButtonLabel}>Pay Portal</Text>
+        </TouchableOpacity>
+        </View>
+
+
         <MaintenanceRequestModal
           visible={isModifyModalVisible}
           onClose={handleCloseModal}
@@ -278,19 +293,26 @@ const styles = StyleSheet.create({
   logoutIcon: {
     fontWeight: "bold",
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
+    marginBottom: 20,
+  },
   addButton: {
     backgroundColor: theme.colors.primary.dark,
     padding: theme.spacing.medium,
     borderRadius: theme.spacing.small,
     marginBottom: theme.spacing.medium,
-    width: "50%",
-    alignItems: "center",
-    marginTop: 10,
-    marginLeft: 100,
+    width: "45%",  // Adjusted width for side-by-side buttons
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   addButtonLabel: {
     color: theme.colors.white,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
 });
 
