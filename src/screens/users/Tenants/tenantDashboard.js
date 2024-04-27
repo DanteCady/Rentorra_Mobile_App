@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, View, TouchableOpacity } from "react-native";
 import { Card, Title, Text } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
-import NavigationBar from "../../../components/composite/Dashboard/landlord/navigationBar";
+import NavigationBar from "../../../components/composite/Dashboard/landlord/navigationBarTenant";
 import { Calendar } from "react-native-calendars";
 import Swiper from "react-native-swiper";
 import MaintenanceRequestModal from "../../../components/composite/Properties/maintenanceRequestModal";
