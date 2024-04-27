@@ -27,14 +27,13 @@ import MicrophoneSettings from "../screens/users/Landlords/settings/Privacy_Secu
 import DeleteAccountPage from '../screens/users/Landlords/settings/Privacy_Security/deleteAccount';
 import DownloadDataPage from '../screens/users/Landlords/settings/Privacy_Security/downloadData';
 import ManageTenants from '../screens/users/Landlords/settings/tenantPropertyManagement/manageTenant';
-
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="LandlordDashboard" options={{ presentation: 'modal' }}>
+        <Stack.Navigator initialRouteName="TenantDashboard" options={{ presentation: 'modal' }}>
         <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordSettingsPage" component={LandlordSettingsPage} options={{ headerShown: false }} />
@@ -43,7 +42,6 @@ const RootNavigator = () => {
         <Stack.Screen name="Files" component={FilesPage} options={{ headerShown: false }} />
         <Stack.Screen name="Inbox" component={InboxPage} options={{ headerShown: false }} />
         <Stack.Screen name="Messages" component={MessagesPage} options={{ headerShown: false }} />
-        <Stack.Screen name="TenantDashboard" component={TenantDashboard} options={{ headerShown: false }} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ headerShown: false }} />
         <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
         <Stack.Screen name="ManagePaymentMethods" component={PaymentMethods} options={{ headerShown: false }} />
@@ -59,6 +57,7 @@ const RootNavigator = () => {
         <Stack.Screen name="DeleteAccountPage" component={DeleteAccountPage} options={{ headerShown: false }} />
         <Stack.Screen name="DownloadDataPage" component={DownloadDataPage} options={{ headerShown: false }} />
         <Stack.Screen name="ManageTenant" component={ManageTenants} options={{headerShown: false}} />
+        <Stack.Screen name="TenantDashboard" component={TenantDashboard} options={{ headerShown: false }} />
         {/* Add other screen routes here */}
       </Stack.Navigator>
       
