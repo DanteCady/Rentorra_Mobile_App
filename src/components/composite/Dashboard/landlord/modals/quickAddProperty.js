@@ -4,6 +4,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import theme from "../../../../../styles/theme";
 
 const AddPropertyModal = ({ isVisible, onClose, onSave }) => {
   const [address, setAddress] = useState('');
@@ -69,12 +70,13 @@ const AddPropertyModal = ({ isVisible, onClose, onSave }) => {
   return (
     <Modal visible={isVisible} animationType="slide" onRequestClose={onClose}>
       <View style={styles.modalContainer}>
-        <TextInput placeholder="Address" value={address} onChangeText={setAddress} style={styles.input} />
-        <TextInput placeholder="Apartment (Optional)" value={apartment} onChangeText={setApartment} style={styles.input} />
-        <TextInput placeholder="City" value={city} onChangeText={setCity} style={styles.input} />
-        <TextInput placeholder="State" value={state} onChangeText={setState} style={styles.input} />
-        <TextInput placeholder="ZIP Code" value={zip} onChangeText={setZip} style={styles.input} />
-        <TextInput placeholder="Rent Amount" value={rentAmount} onChangeText={setRentAmount} style={styles.input} keyboardType="numeric" />
+        <TextInput placeholder="Address" placeholderTextColor="grey"
+        value={address} onChangeText={setAddress} style={styles.input} />
+        <TextInput placeholder="Apartment (Optional)" placeholderTextColor="grey" value={apartment} onChangeText={setApartment} style={styles.input} />
+        <TextInput placeholder="City" placeholderTextColor="grey" value={city} onChangeText={setCity} style={styles.input} />
+        <TextInput placeholder="State" placeholderTextColor="grey" value={state} onChangeText={setState} style={styles.input} />
+        <TextInput placeholder="ZIP Code" placeholderTextColor="grey" value={zip} onChangeText={setZip} style={styles.input} />
+        <TextInput placeholder="Rent Amount" placeholderTextColor="grey" value={rentAmount} onChangeText={setRentAmount} style={styles.input} keyboardType="numeric" />
         <Button title="Upload Document (Optional)" onPress={handleDocumentPick} />
         {document && (<Text style={styles.fileName}>File: {document.name}</Text>)}
         <View style={styles.buttonContainer}>
@@ -94,11 +96,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   input: {
-    marginBottom: 10,
-    paddingHorizontal: 15,
+    width: "100%",
     height: 40,
-    borderColor: 'gray',
+    borderColor: theme.colors.primary.dark,
     borderWidth: 1,
+    borderRadius: theme.spacing.small,
+    paddingHorizontal: 10,
+    marginBottom: theme.spacing.medium,
   },
   fileName: {
     margin: 10,
