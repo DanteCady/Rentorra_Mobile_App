@@ -5,7 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from '../screens/auth/login';
 import SignUpScreen from '../screens/auth/signUp';
 import LandlordDashboard from '../screens/users/Landlords/landlordDashboard';
-import LandlordSettingsPage from "../screens/users/Landlords/settings/settings";
+import TenantsSettingsPage from "../screens/users/Tenants/settings/settings";
+import LandlordSettingsPage from "../screens/users/Tenants/settings/settings";
 import NotificationPage from '../screens/users/Landlords/notifications';
 import FilesPage from '../screens/users/Landlords/files';
 import InboxPage from '../screens/users/Landlords/inbox';
@@ -27,13 +28,14 @@ import MicrophoneSettings from "../screens/users/Landlords/settings/Privacy_Secu
 import DeleteAccountPage from '../screens/users/Landlords/settings/Privacy_Security/deleteAccount';
 import DownloadDataPage from '../screens/users/Landlords/settings/Privacy_Security/downloadData';
 import ManageTenants from '../screens/users/Landlords/settings/tenantPropertyManagement/manageTenant';
+import PaymentPortal from '../screens/users/Tenants/payPortal';
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-        <Stack.Navigator initialRouteName="TenantDashboard" options={{ presentation: 'modal' }}>
+        <Stack.Navigator initialRouteName="PaymentPortal" options={{ presentation: 'modal' }}>
         <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordSettingsPage" component={LandlordSettingsPage} options={{ headerShown: false }} />
@@ -58,6 +60,8 @@ const RootNavigator = () => {
         <Stack.Screen name="DownloadDataPage" component={DownloadDataPage} options={{ headerShown: false }} />
         <Stack.Screen name="ManageTenant" component={ManageTenants} options={{headerShown: false}} />
         <Stack.Screen name="TenantDashboard" component={TenantDashboard} options={{ headerShown: false }} />
+        <Stack.Screen name="TenantsSettingsPage" component={TenantsSettingsPage} options={{ headerShown: false }} />
+        <Stack.Screen name="PaymentPortal" component={PaymentPortal} options={{ headerShown: false }} />
         {/* Add other screen routes here */}
       </Stack.Navigator>
       

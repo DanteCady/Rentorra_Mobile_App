@@ -2,21 +2,46 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, View, TouchableOpacity } from "react-native";
 import { Card, Title, Text } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
-import NavigationBar from "../../../components/composite/Dashboard/landlord/navigationBarTenant";
+import NavigationBar from "../../../components/composite/Dashboard/landlord/navigationBarLandlord";
 import { Calendar } from "react-native-calendars";
 import Swiper from "react-native-swiper";
-import MaintenanceRequestModal from "../../../components/composite/Properties/maintenanceRequestModal";
+import QuickAddButtons from "../../../components/composite/Dashboard/landlord/quickAddButtons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../../../styles/theme";
 import axios from "axios";
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from 'expo-secure-store'; 
+import AddPropertyModal from "../../../components/composite/Dashboard/landlord/modals/quickAddProperty"
+import AddTenantModal from "../../../components/composite/Dashboard/landlord/modals/quickAddTenant";
 
-const TenantDashboard = ({ route, navigation }) => {
+const LandlordDashboard = ({ route, navigation }) => {
+
   const [showQuickAddButtons, setShowQuickAddButtons] = useState(false);
   const { userName } = route.params || {};
-  const [properties, setProperties] = useState([]);
+  const [isAddPropertyModalVisible, setAddPropertyModalVisible] = useState(false);
+  const [isAddTenantModalVisible, setAddTenantModalVisible] = useState(false);
+  const [properties, setProperties] = useState([]); 
   const [tenants, setTenants] = useState([]);
-  const [isModifyModalVisible, setIsModifyModalVisible] = useState(false);
+
+
+// Function to open the AddTenantModal
+const openAddTenantModal = () => {
+  setAddTenantModalVisible(true);
+};
+
+// Function to close the AddTenantModal
+const closeAddTenantModal = () => {
+  setAddTenantModalVisible(false);
+};
+
+  // Function to open the AddPropertyModal
+  const openAddPropertyModal = () => {
+    setAddPropertyModalVisible(true);
+  };
+
+  // Function to close the AddPropertyModal
+  const closeAddPropertyModal = () => {
+    setAddPropertyModalVisible(false);
+  };
 
   // Function to handle saving a new property
   const handleSaveProperty = (propertyData) => {
@@ -25,26 +50,26 @@ const TenantDashboard = ({ route, navigation }) => {
     closeAddPropertyModal();
   };
 
+  const toggleQuickAddButtons = () => {
+    setShowQuickAddButtons(!showQuickAddButtons);
+  };
+
   const goToSettings = () => {
-    navigation.navigate("TenantsSettingsPage");
+    navigation.navigate("LandlordSettingsPage");
   };
 
   const handleLogout = () => {
     navigation.navigate("Login");
   };
-  const handlePayPortal = () => {
-    navigation.navigate("PayPortalPage"); // Adjust the route as necessary
-  };
-  
-  // Function to handle opening the maintenance request modal
-  const handleOpenModal = () => {
-    setIsModifyModalVisible(true);
-  };
 
-  // Function to handle closing the maintenance request modal
-  const handleCloseModal = () => {
-    setIsModifyModalVisible(false);
-  };
+  
+  const upcomingPayments = [
+    { tenant: "John Doe", dueDate: "2023-10-01", amount: 500 },
+    { tenant: "Jane Smith", dueDate: "2023-10-05", amount: 550 },
+    { tenant: "Dante Cady", dueDate: "2023-10-01", amount: 500 },
+    { tenant: "Omar Santos", dueDate: "2023-10-05", amount: 550 },
+    { tenant: "Greg Davis", dueDate: "2023-10-01", amount: 500 },
+  ];
 
   const getDaysRemaining = (dueDate) => {
     const currentDate = new Date();
@@ -54,9 +79,10 @@ const TenantDashboard = ({ route, navigation }) => {
     return differenceInDays;
   };
 
+
   const totalRentExpected = tenants.reduce(
     (sum, tenant) => sum + tenant.rent,
-    0,
+    0
   );
 
   return (
@@ -96,7 +122,7 @@ const TenantDashboard = ({ route, navigation }) => {
           {/* Page 1 - Total Expected Rent */}
           <View style={styles.summaryPage}>
             <Card.Content>
-              <Title style={styles.incomeTitle}>Rent Due</Title>
+              <Title style={styles.incomeTitle}>Total Expected Rent</Title>
               <Text style={styles.incomeAmount}>
                 ${totalRentExpected.toFixed(2)}
               </Text>
@@ -105,20 +131,92 @@ const TenantDashboard = ({ route, navigation }) => {
           {/* Page 2 - Metric 2 */}
           <View style={styles.summaryPage}>
             <Card.Content>
-              <Title style={styles.incomeTitle}>Total Rent Paid</Title>
+              <Title style={styles.incomeTitle}>Total Rent Received</Title>
               <Text>Add content for Metric 2 here</Text>
             </Card.Content>
           </View>
           {/* Page 3 - Metric 3 */}
           <View style={styles.summaryPage}>
             <Card.Content>
-              <Title style={styles.incomeTitle}>Time Rented</Title>
+              <Title style={styles.incomeTitle}>Vacancy Rate</Title>
               <Text>Add content for Metric 3 here</Text>
             </Card.Content>
           </View>
           {/* Page 4 - Metric 6 */}
+          <View style={styles.summaryPage}>
+            <Card.Content>
+              <Title style={styles.incomeTitle}>Rent Arrears</Title>
+              <Text>Add content for Metric 6 here</Text>
+            </Card.Content>
+          </View>
+          {/* Page 5 - Metric 10 */}
+          <View style={styles.summaryPage}>
+            <Card.Content>
+              <Title style={styles.incomeTitle}>Projected Income</Title>
+              <Text>Add content for Metric 10 here</Text>
+            </Card.Content>
+          </View>
         </Swiper>
 
+        <View style={styles.content}>
+          <Text style={styles.boxName}>Tenants</Text>
+          <View style={styles.tenantBox}>
+  <Card.Content>
+    {tenants.slice(0, 5).map((tenant, index) => (
+      <View key={index} style={styles.tenantRow}>
+        <Text style={styles.tenantName}>{tenant.firstName} {tenant.lastName}</Text>
+      </View>
+    ))}
+  </Card.Content> 
+</View>
+
+          <TouchableOpacity onPress={() => navigation.navigate("AllTenants")}>
+            <Text style={styles.viewAll}>View All</Text>
+          </TouchableOpacity>
+        </View>
+        {/* Properties Section */}
+<View style={styles.content}>
+  <Text style={styles.boxName}>Properties</Text>
+  <View style={styles.tenantBox}>
+    <Card.Content>
+      {properties.slice(0, 5).map((property, index) => (
+        <View key={index} style={styles.tenantRow}>
+          <Text style={styles.tenantName}>{property.address}</Text>
+          {/* Display additional property details here as needed */}
+        </View>
+      ))}
+    </Card.Content>
+  </View>
+  <TouchableOpacity onPress={() => navigation.navigate("AllProperties")}>
+    <Text style={styles.viewAll}>View All</Text>
+  </TouchableOpacity>
+</View>
+
+        <View style={styles.content}>
+          <Text style={styles.boxName}>Upcoming Payments</Text>
+          <View style={styles.upcomingPaymentsContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {upcomingPayments.map((payment, index) => (
+                <View key={index} style={styles.paymentTile}>
+                  <Text style={styles.paymentTenant}>{payment.tenant}</Text>
+                  <Text style={styles.paymentAmount}>
+                    ${payment.amount.toFixed(2)}
+                  </Text>
+                  <Text style={styles.paymentDueDate}>
+                    Due: {payment.dueDate}
+                  </Text>
+                  <Text style={styles.daysRemaining}>
+                    {getDaysRemaining(payment.dueDate)} days to go
+                  </Text>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate("AllPayments")}>
+            <Text style={styles.viewAll}>View All</Text>
+          </TouchableOpacity>
+        </View>
+        
         {/* Calendar */}
         <View style={styles.content}>
           <Text style={styles.boxName}>Calendar</Text>
@@ -126,31 +224,34 @@ const TenantDashboard = ({ route, navigation }) => {
           // Customize calendar appearance and behavior here
           />
         </View>
-
-        {/* Button to submit the modification */}
-        <View style={styles.buttonContainer}>
-        {/* Maintenance Request Button */}
-        <TouchableOpacity style={styles.addButton} onPress={handleOpenModal}>
-            <Icon name="wrench" size={24} color={theme.colors.white} />
-            <Text style={styles.addButtonLabel}>Request</Text>
-        </TouchableOpacity>
-
-        {/* Pay Portal Button */}
-        <TouchableOpacity style={styles.addButton} onPress={handlePayPortal}>
-            <Icon name="credit-card" size={24} color={theme.colors.white} />
-            <Text style={styles.addButtonLabel}>Pay Portal</Text>
-        </TouchableOpacity>
-        </View>
-
-
-        <MaintenanceRequestModal
-          visible={isModifyModalVisible}
-          onClose={handleCloseModal}
-        />
       </ScrollView>
 
-      <NavigationBar navigation={navigation} />
-    </View>
+      <NavigationBar
+        navigation={navigation}
+        toggleQuickAdd={toggleQuickAddButtons} // Pass the function here
+      />
+
+      {/* Conditionally render QuickAddButtons component */}
+   {/* QuickAddButtons component with the openAddPropertyModal function passed as a prop */}
+   {showQuickAddButtons && (
+        <QuickAddButtons onAddProperty={openAddPropertyModal} onAddTenant={openAddTenantModal} />
+      )}
+
+      {/* AddPropertyModal component */}
+      <AddPropertyModal
+        isVisible={isAddPropertyModalVisible}
+        onClose={closeAddPropertyModal}
+        onSave={handleSaveProperty}
+      />    
+
+       {/* AddTenantModal component */}
+       <AddTenantModal
+        isVisible={isAddTenantModalVisible}
+        onClose={closeAddTenantModal}
+        // onSave={handleSaveTenant}
+        properties={properties} // Pass the properties for the picker
+      />
+      </View>
   );
 };
 const styles = StyleSheet.create({
@@ -180,7 +281,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 10,
-    color: theme.colors.primary.main,
+    color: theme.colors.primary.main
   },
   summaryPage: {
     flex: 1,
@@ -211,7 +312,7 @@ const styles = StyleSheet.create({
   },
   tenantName: {
     fontSize: 18,
-    color: theme.colors.primary.dark,
+    color: theme.colors.primary.dark
   },
   tenantRent: {
     fontSize: 18,
@@ -239,7 +340,7 @@ const styles = StyleSheet.create({
   },
   paymentAmount: {
     fontSize: 16,
-    color: theme.colors.primary.dark,
+    color: theme.colors.primary.dark
   },
   paymentDueDate: {
     fontSize: 12,
@@ -254,7 +355,7 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.body.fontSize,
     color: theme.colors.primary.main,
     textDecorationLine: "underline",
-    textAlign: "right",
+    textAlign: "right"
   },
   welcomeText: {
     fontSize: 24,
@@ -293,27 +394,6 @@ const styles = StyleSheet.create({
   logoutIcon: {
     fontWeight: "bold",
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  addButton: {
-    backgroundColor: theme.colors.primary.dark,
-    padding: theme.spacing.medium,
-    borderRadius: theme.spacing.small,
-    marginBottom: theme.spacing.medium,
-    width: "45%",  // Adjusted width for side-by-side buttons
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  addButtonLabel: {
-    color: theme.colors.white,
-    fontWeight: 'bold',
-    marginLeft: 10,
-  },
 });
 
-export default TenantDashboard;
+export default LandlordDashboard;
