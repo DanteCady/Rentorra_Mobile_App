@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+// import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { MaterialIcons } from '@expo/vector-icons';
+
 import theme from "../../../../styles/theme";
 import QuickAddButtons from "./quickAddButtons";
 
@@ -42,8 +44,8 @@ const NavigationBar = ({ navigation, toggleQuickAdd }) => {
       <View style={styles.buttonsContainer}>
         {/* Each button navigates to a different screen or performs an action. */}
         <TouchableOpacity onPress={goToDashboard} style={styles.button}>
-          <Icon
-            name="view-dashboard"
+          <MaterialIcons
+            name="dashboard"
             size={30}
             color={theme.colors.primary.dark}
           />
@@ -54,8 +56,8 @@ const NavigationBar = ({ navigation, toggleQuickAdd }) => {
           onPress={toggleQuickAddButtonsLocal}
           style={styles.button}
         >
-          <Icon
-            name="plus-circle"
+          <MaterialIcons
+            name="add-circle"
             size={30}
             color={theme.colors.primary.dark}
           />
@@ -63,17 +65,17 @@ const NavigationBar = ({ navigation, toggleQuickAdd }) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={goToNotifications} style={styles.button}>
-          <Icon name="bell" size={30} color={theme.colors.primary.dark} />
+          <MaterialIcons name="notifications" size={30} color={theme.colors.primary.dark} />
           <Text style={styles.iconTitle}>Notifications</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={goToFiles} style={styles.button}>
-          <Icon name="folder" size={30} color={theme.colors.primary.dark} />
+          <MaterialIcons name="folder" size={30} color={theme.colors.primary.dark} />
           <Text style={styles.iconTitle}>Files</Text>
         </TouchableOpacity>
 
         {/* <TouchableOpacity onPress={goToInbox} style={styles.button}>
-          <Icon name="message" size={30} color={theme.colors.primary.dark} />
+          <MaterialIcons name="message" size={30} color={theme.colors.primary.dark} />
           <Text style={styles.iconTitle}>Messages</Text>
         </TouchableOpacity> */}
       </View>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, View, Text, TextInput, Button, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+// import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { MaterialIcons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store'; // Import SecureStore from Expo
 // import { Camera, CameraType } from 'expo-camera';
 import theme from "../../../../../styles/theme";
@@ -13,7 +14,7 @@ const AddTenantModal = ({ isVisible, onClose, onSave }) => {
   const [lastName, setLastName] = useState('');
   const [tenantId, settenantId] = useState("");
   const [assignedProperty, setAssignedProperty] = useState(null);
-  const [cameraType, setCameraType] = useState(CameraType.back); // State for camera type
+  // const [cameraType, setCameraType] = useState(CameraType.back); // State for camera type
 
   useEffect(() => {
     const fetchProperties = async () => {

@@ -43,7 +43,8 @@
         {
           "faceIDPermission": "Allow $(Rentorra) to use Face ID."
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "extra": {
       "eas": {
