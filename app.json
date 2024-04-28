@@ -24,7 +24,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/splash.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
@@ -42,12 +42,6 @@
         "expo-local-authentication",
         {
           "faceIDPermission": "Allow $(Rentorra) to use Face ID."
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow $(Rentorra) to access your camera"
         }
       ]
     ],

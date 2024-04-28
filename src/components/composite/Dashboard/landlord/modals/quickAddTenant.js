@@ -3,7 +3,7 @@ import { Modal, View, Text, TextInput, Button, StyleSheet, ActivityIndicator, Al
 import { Picker } from '@react-native-picker/picker';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import * as SecureStore from 'expo-secure-store'; // Import SecureStore from Expo
-import { Camera, CameraType } from 'expo-camera';
+// import { Camera, CameraType } from 'expo-camera';
 import theme from "../../../../../styles/theme";
 
 const AddTenantModal = ({ isVisible, onClose, onSave }) => {
@@ -37,9 +37,9 @@ const AddTenantModal = ({ isVisible, onClose, onSave }) => {
     }
   }, [isVisible]);
 
-  const toggleCameraType = () => {
-    setCameraType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
-  };
+  // const toggleCameraType = () => {
+  //   setCameraType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+  // };
 
   const handleSave = async () => {
     if (!firstName || !lastName) {

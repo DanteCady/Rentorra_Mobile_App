@@ -24,7 +24,7 @@ import LandlordSMSAlertsSettingsPage from '../screens/users/Landlords/settings/N
 import LandlordEmailNotificationsSettingsPage from '../screens/users/Landlords/settings/Notifications/emailNotifications';
 import LandlordThemeSettings from '../screens/users/Landlords/settings/Display_Appearance/themeSettings';
 import LandlordLanguageSettings from  '../screens/users/Landlords/settings/Display_Appearance/languageSettings';
-import LandlordCameraSettings from '../screens/users/Landlords/settings/Privacy_Security/camera';
+// import LandlordCameraSettings from '../screens/users/Landlords/settings/Privacy_Security/camera';
 import LandlordLocationSettings from "../screens/users/Landlords/settings/Privacy_Security/location";
 import LandlordPhotosSettings from '../screens/users/Landlords/settings/Privacy_Security/photos';
 import LandlordMicrophoneSettings from "../screens/users/Landlords/settings/Privacy_Security/microphone";
@@ -49,7 +49,7 @@ import TenantSMSAlertsSettingsPage from '../screens/users/Tenants/settings/Notif
 import TenantEmailNotificationsSettingsPage from '../screens/users/Tenants/settings/Notifications/emailNotifications';
 import TenantThemeSettings from '../screens/users/Tenants/settings/Display_Appearance/themeSettings';
 import TenantLanguageSettings from  '../screens/users/Tenants/settings/Display_Appearance/languageSettings';
-import TenantCameraSettings from '../screens/users/Tenants/settings/Privacy_Security/camera';
+// import TenantCameraSettings from '../screens/users/Tenants/settings/Privacy_Security/camera';
 import TenantLocationSettings from "../screens/users/Tenants/settings/Privacy_Security/location";
 import TenantPhotosSettings from '../screens/users/Tenants/settings/Privacy_Security/photos';
 import TenantMicrophoneSettings from "../screens/users/Tenants/settings/Privacy_Security/microphone";
@@ -79,7 +79,7 @@ const RootNavigator = () => {
         <Stack.Screen name="LandlordEmailNotificationsSettingsPage" component={LandlordEmailNotificationsSettingsPage} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordThemeSettings" component={LandlordThemeSettings} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordLanguageSettings" component={LandlordLanguageSettings} options={{ headerShown: false }} />
-        <Stack.Screen name="LandlordCameraSettings" component={LandlordCameraSettings} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="LandlordCameraSettings" component={LandlordCameraSettings} options={{ headerShown: false }} /> */}
         <Stack.Screen name="LandlordLocationSettings" component={LandlordLocationSettings} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordPhotosSettings" component={LandlordPhotosSettings} options={{ headerShown: false }} />
         <Stack.Screen name="LandlordMicrophoneSettings" component={LandlordMicrophoneSettings} options={{ headerShown: false }} />
@@ -103,7 +103,7 @@ const RootNavigator = () => {
         <Stack.Screen name="TenantEmailNotificationsSettingsPage" component={TenantEmailNotificationsSettingsPage} options={{ headerShown: false }} />
         <Stack.Screen name="TenantThemeSettings" component={TenantThemeSettings} options={{ headerShown: false }} />
         <Stack.Screen name="TenantLanguageSettings" component={TenantLanguageSettings} options={{ headerShown: false }} />
-        <Stack.Screen name="TenantCameraSettings" component={TenantCameraSettings} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="TenantCameraSettings" component={TenantCameraSettings} options={{ headerShown: false }} /> */}
         <Stack.Screen name="TenantLocationSettings" component={TenantLocationSettings} options={{ headerShown: false }} />
         <Stack.Screen name="TenantPhotosSettings" component={TenantPhotosSettings} options={{ headerShown: false }} />
         <Stack.Screen name="TenantMicrophoneSettings" component={TenantMicrophoneSettings} options={{ headerShown: false }} />
