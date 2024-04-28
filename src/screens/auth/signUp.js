@@ -20,7 +20,7 @@ const SignUpScreen = ({ navigation }) => {
   
   // Function to navigate back to the Login screen
   const goToLogin = () => {
-    navigation.navigate("Login");
+    navigation.navigate("LoginScreen");
   };
 
   // Handle date change from date picker
@@ -135,10 +135,9 @@ const SignUpScreen = ({ navigation }) => {
         </View>
 
         {/* Link to navigate back to Login screen */}
-        <TouchableOpacity onPress={goToLogin} style={styles.backToLogin}>
-          <Text style={styles.backToLoginText}>
-            Already have an account? Log in
-          </Text>
+        <TouchableOpacity onPress={goToLogin} style={styles.loginContainer}>
+        <Text style={styles.loginText}>Already have an account? </Text>
+            <Text style={styles.loginLink}onPress={() => navigation.navigate("LoginScreen")}>Login</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -210,11 +209,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  backToLogin: {
-    marginTop: 30,
-    alignItems: "center",
+ loginContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: theme.spacing.large,
   },
-  backToLoginText: {
+  loginText: {
+    fontSize: theme.typography.body.fontSize,
+    color: theme.colors.grey.dark,
+  },
+ loginLink: {
     fontSize: theme.typography.body.fontSize,
     color: theme.colors.primary.main,
     textDecorationLine: "underline",

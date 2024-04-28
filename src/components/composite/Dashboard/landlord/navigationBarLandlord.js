@@ -23,19 +23,19 @@ const NavigationBar = ({ navigation, toggleQuickAdd }) => {
   };
 
   const goToFiles = () => {
-    navigation.navigate("Files");
+    navigation.navigate("LandlordFiles");
   };
 
   const goToNotifications = () => {
-    navigation.navigate("Notifications");
+    navigation.navigate("LandlordNotificationPage");
   };
 
   const goToInbox = () => {
-    navigation.navigate("Inbox");
+    navigation.navigate("LandlordInbox");
   };
 
   const goToReports = () => {
-    navigation.navigate("Reports");
+    navigation.navigate("LandlordReports");
   };
 
   return (

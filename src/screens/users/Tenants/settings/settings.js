@@ -15,26 +15,26 @@ const settingsData = [
     title: "Profile",
     icon: "account",
     subItems: [
-      { title: "Edit Profile", route: "EditProfile" },
-      { title: "Change Password", route: "ChangePassword" },
-      { title: "Manage Payment Methods", route: "ManagePaymentMethods" },
+      { title: "Edit Profile", route: "TenantEditProfile" },
+      { title: "Change Password", route: "TenantChangePassword" },
+      { title: "Manage Payment Methods", route: "TenantManagePaymentMethods" },
     ],
   },
   {
     title: "Notifications",
     icon: "bell",
     subItems: [
-      { title: "Push Notifications", route: "PushNotificationsSettingsPage" },
-      { title: "Email Notifications", route: "EmailNotificationsSettingsPage" },
-      { title: "SMS Alerts", route: "SMSAlertsSettingsPage" },
+      { title: "Push Notifications", route: "TenantPushNotificationsSettingsPage" },
+      { title: "Email Notifications", route: "TenantEmailNotificationsSettingsPage" },
+      { title: "SMS Alerts", route: "TenantSMSAlertsSettingsPage" },
     ],
   },
   {
     title: "Display & Appearance",
     icon: "screen-rotation",
     subItems: [
-      { title: "Theme Settings", route: "ThemeSettings" },
-      { title: "Language", route: "LanguageSettings" },
+      { title: "Theme Settings", route: "TenantThemeSettings" },
+      { title: "Language", route: "TenantLanguageSettings" },
     ],
   },
   {
@@ -42,12 +42,12 @@ const settingsData = [
     icon: "lock",
     subItems: [
       { title: "Privacy Policy" },
-      { title: "Delete Account", route: "DeleteAccountPage" },
-      { title: "Download Data", route: "DownloadDataPage" },
-      { title: "Camera", route: "CameraSettings" },
-      { title: "Location", route: "LocationSettings" },
-      { title: "Photos", route: "PhotosSettings" },
-      { title: "Microphone", route: "MicrophoneSettings" },
+      { title: "Delete Account", route: "TenantDeleteAccountPage" },
+      { title: "Download Data", route: "TenantDownloadDataPage" },
+      { title: "Camera", route: "TenantCameraSettings" },
+      { title: "Location", route: "TenantLocationSettings" },
+      { title: "Photos", route: "TenantPhotosSettings" },
+      { title: "Microphone", route: "TenantMicrophoneSettings" },
     ],
   },
   {

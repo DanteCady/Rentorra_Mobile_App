@@ -12,15 +12,15 @@ const NavigationBar = ({ navigation }) => {
   };
 
   const goToFiles = () => {
-    navigation.navigate("Files");
+    navigation.navigate("TenantFiles");
   };
 
   const goToNotifications = () => {
-    navigation.navigate("Notifications");
+    navigation.navigate("TenantNotifications");
   };
 
   const goToInbox = () => {
-    navigation.navigate("Inbox");
+    navigation.navigate("TenantInbox");
   };
 
 

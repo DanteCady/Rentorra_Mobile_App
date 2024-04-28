@@ -33,7 +33,7 @@ const TenantDashboard = ({ route, navigation }) => {
     navigation.navigate("Login");
   };
   const handlePayPortal = () => {
-    navigation.navigate("PaymentPortal"); // Adjust the route as necessary
+    navigation.navigate("TenantPaymentPortal"); // Adjust the route as necessary
   };
   
   // Function to handle opening the maintenance request modal
