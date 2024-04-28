@@ -7,7 +7,6 @@
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      // "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +18,8 @@
       "icon": "./src/assets/icon.png",
       "infoPlist": {
         "NSFaceIDUsageDescription": "Allow $(Rentorra) to use Face ID."
-      }
+      },
+      "bundleIdentifier": "com.dantecady.rentorraios"
     },
     "android": {
       "adaptiveIcon": {
