@@ -59,7 +59,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="TenantDashboard" options={{ presentation: 'modal' }}>
+      <Stack.Navigator initialRouteName="LoginScreen" options={{ presentation: 'modal' }}>
         {/* System Routes */}
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
