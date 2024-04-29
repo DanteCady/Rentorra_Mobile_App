@@ -18,7 +18,13 @@
       "supportsTablet": false,
       "icon": "./src/assets/icon.png",
       "infoPlist": {
-        "NSFaceIDUsageDescription": "Allow $(Rentorra) to use Face ID."
+        "NSCameraUsageDescription": "Allow Rentorra to use the camera.",
+        "NSLocationWhenInUseUsageDescription": "Allow Rentorra to access your location.",
+        "NSLocationAlwaysUsageDescription": "Allow Rentorra to always access your location.",
+        "NSMicrophoneUsageDescription": "Allow Rentorra to access the microphone for recording audio.",
+        "NSFaceIDUsageDescription": "Allow Rentorra to use Face ID.",
+        "NSUserNotificationUsageDescription": "Allow Rentorra to send notifications.",
+        "NSSMSUsageDescription": "Allow Rentorra to send and read SMS messages."
       },
       "bundleIdentifier": "com.dantecady.rentorraios"
     },
@@ -31,7 +37,11 @@
         "android.permission.USE_BIOMETRIC",
         "android.permission.USE_FINGERPRINT",
         "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.RECEIVE_SMS",
+        "android.permission.SEND_SMS"
       ]
     },
     "web": {
@@ -41,7 +51,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow $(Rentorra) to use Face ID."
+          "faceIDPermission": "Allow Rentorra to use Face ID."
         }
       ],
       "expo-secure-store"
