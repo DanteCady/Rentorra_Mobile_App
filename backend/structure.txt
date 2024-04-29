@@ -1,0 +1,10 @@
+- /server
+  - /config
+    - db.config.js
+  - /routes
+    - users.routes.js
+  - /controllers
+    - users.controller.js
+  - .env
+  - server.js
+  - package.json
