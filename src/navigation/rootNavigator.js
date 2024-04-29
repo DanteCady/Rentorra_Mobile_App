@@ -24,7 +24,7 @@ import LandlordSMSAlertsSettingsPage from '../screens/users/Landlords/settings/N
 import LandlordEmailNotificationsSettingsPage from '../screens/users/Landlords/settings/Notifications/emailNotifications';
 import LandlordThemeSettings from '../screens/users/Landlords/settings/Display_Appearance/themeSettings';
 import LandlordLanguageSettings from  '../screens/users/Landlords/settings/Display_Appearance/languageSettings';
-// import LandlordCameraSettings from '../screens/users/Landlords/settings/Privacy_Security/camera';
+import LandlordCameraSettings from '../screens/users/Landlords/settings/Privacy_Security/camera';
 import LandlordLocationSettings from "../screens/users/Landlords/settings/Privacy_Security/location";
 import LandlordPhotosSettings from '../screens/users/Landlords/settings/Privacy_Security/photos';
 import LandlordMicrophoneSettings from "../screens/users/Landlords/settings/Privacy_Security/microphone";
@@ -49,7 +49,7 @@ import TenantSMSAlertsSettingsPage from '../screens/users/Tenants/settings/Notif
 import TenantEmailNotificationsSettingsPage from '../screens/users/Tenants/settings/Notifications/emailNotifications';
 import TenantThemeSettings from '../screens/users/Tenants/settings/Display_Appearance/themeSettings';
 import TenantLanguageSettings from  '../screens/users/Tenants/settings/Display_Appearance/languageSettings';
-// import TenantCameraSettings from '../screens/users/Tenants/settings/Privacy_Security/camera';
+import TenantCameraSettings from '../screens/users/Tenants/settings/Privacy_Security/camera';
 import TenantLocationSettings from "../screens/users/Tenants/settings/Privacy_Security/location";
 import TenantPhotosSettings from '../screens/users/Tenants/settings/Privacy_Security/photos';
 import TenantMicrophoneSettings from "../screens/users/Tenants/settings/Privacy_Security/microphone";
