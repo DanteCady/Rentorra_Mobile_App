@@ -20,6 +20,9 @@ const LoginScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showSecretMenu, setShowSecretMenu] = useState(false);
   const [holdTimer, setHoldTimer] = useState(null);
+  
+  // const authEndpoint = process.env.RENTORRA_APP_AUTH_ENDPOINT;
+  // const usersEndpoint = process.env.RENTORRA_APP_USERS_ENDPOINT;
 
   const handlePressIn = () => {
     // Start a timer when the user presses down
@@ -34,6 +37,88 @@ const LoginScreen = ({ navigation }) => {
     clearTimeout(holdTimer);
   };
 
+
+ const fetchUserName = async (token) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:3001/api/users/getUserName",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data && response.data.userName) {
+      return response.data.userName;
+    } else {
+      console.error("Unexpected response structure:", response.data);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching user name:", error);
+    return null;
+  }
+};
+
+ const handleLogin = async () => {
+   try {
+     const response = await axios.post(
+      "http://localhost:3001/api/auth/login",
+       {
+         email,
+         password,
+       }
+     );
+
+     if (response.data.token) {
+       const token = response.data.token;
+       console.log(token)
+       // Fetch the user's name after successfully logging in
+       const userName = await fetchUserName(token);
+
+       const userType = response.data.userType;
+
+       // Store the JWT token securely
+       await SecureStore.setItemAsync("userToken", token);
+
+       if (!userName) {
+         Alert.alert("Error", "Failed to fetch the user's name.");
+         return;
+       }
+
+       if (userType === "landlord") {
+         navigation.navigate("LandlordDashboard", { token, userName });
+       } else if (userType === "tenant") {
+         navigation.navigate("TenantDashboard", { token, userName });
+       } else {
+         Alert.alert("Login Failed", "Invalid user type.");
+       }
+     } else {
+       Alert.alert("Login Failed", "Invalid credentials. Please try again.");
+     }
+   } catch (error) {
+     if (error.response) {
+       console.error("Server error:", error.response.data);
+       Alert.alert(
+         "Server Error",
+         "An error occurred on the server. Please try again later."
+       );
+     } else if (error.request) {
+       console.error("Network error:", error.request);
+       Alert.alert(
+         "Network Error",
+         "Unable to connect to the server. Please check your network connection."
+       );
+     } else {
+       console.error("Unexpected error:", error);
+       Alert.alert(
+         "Login Error",
+         "An unexpected error occurred while logging in."
+       );
+     }
+   }
+ };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -76,6 +161,7 @@ const LoginScreen = ({ navigation }) => {
             mode="contained"
             style={styles.loginButton}
             labelStyle={styles.buttonText}
+            onPress={handleLogin}
           >
             Login
           </Button>
