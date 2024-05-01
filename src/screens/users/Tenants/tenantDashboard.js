@@ -12,8 +12,7 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
 const TenantDashboard = ({ route, navigation }) => {
-  const [showQuickAddButtons, setShowQuickAddButtons] = useState(false);
-  const { userName } = route.params || {};
+  const [userName, setUserName] = useState('User'); // Default username
   const [properties, setProperties] = useState([]);
   const [tenants, setTenants] = useState([]);
   const [isModifyModalVisible, setIsModifyModalVisible] = useState(false);
@@ -46,6 +45,27 @@ const TenantDashboard = ({ route, navigation }) => {
     setIsModifyModalVisible(false);
   };
 
+  // Fetch user name from the server
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const userToken = await SecureStore.getItemAsync('userToken');
+        const response = await axios.get(`http://localhost:3001/api/users/getUserName`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          }
+        });
+        if (response.data && response.data.userName) {
+          setUserName(response.data.userName);
+        }
+      } catch (error) {
+        console.error('Failed to fetch user name:', error);
+      }
+    };
+
+    fetchUserName();
+  }, []);
+  
   const getDaysRemaining = (dueDate) => {
     const currentDate = new Date();
     const paymentDate = new Date(dueDate);

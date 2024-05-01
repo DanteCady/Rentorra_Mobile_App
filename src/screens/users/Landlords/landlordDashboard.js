@@ -15,7 +15,7 @@ import AddTenantModal from "../../../components/composite/Dashboard/landlord/mod
 
 const LandlordDashboard = ({ route, navigation }) => {
   const [showQuickAddButtons, setShowQuickAddButtons] = useState(false);
-  const { userName } = route.params || {};
+  const [userName, setUserName] = useState('User'); // Default username
   const [isAddPropertyModalVisible, setAddPropertyModalVisible] =
     useState(false);
   const [isAddTenantModalVisible, setAddTenantModalVisible] = useState(false);
@@ -60,6 +60,27 @@ const LandlordDashboard = ({ route, navigation }) => {
   const handleLogout = () => {
     navigation.navigate("LoginScreen");
   };
+
+  // Fetch user name from the server
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const userToken = await SecureStore.getItemAsync('userToken');
+        const response = await axios.get(`http://localhost:3001/api/users/getUserName`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          }
+        });
+        if (response.data && response.data.userName) {
+          setUserName(response.data.userName);
+        }
+      } catch (error) {
+        console.error('Failed to fetch user name:', error);
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   const upcomingPayments = [
     { tenant: "John Doe", dueDate: "2023-10-01", amount: 500 },
