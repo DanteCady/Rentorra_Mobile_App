@@ -23,6 +23,59 @@ const SignUpScreen = ({ navigation }) => {
     navigation.navigate("LoginScreen");
   };
 
+  const handleSignUp = async () => {
+    try {
+      // API call
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/signup",
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+          phone,
+          birthDate: birthDate.toISOString(),  // Format the date as ISO string
+          userType,
+        }
+      );
+
+      // Check if user was created successfully
+      if (response.data.success) {
+        // If registration was completely successful
+        Alert.alert("Success", response.data.message || "Sign-up completed!");
+        // Navigate based on userType
+        if (userType === "tenant") {
+          navigation.navigate("TenantDashboard"); // Navigate to TenantDashboard
+        } else if (userType === "landlord") {
+          navigation.navigate("LandlordDashboard"); // Navigate to LandlordDashboard
+        }
+      } else if (response.data.partialSuccess) {
+        // If some parts of the registration were successful but not all
+        Alert.alert("Success with Notices", response.data.message);
+        // Navigate based on userType with partial success
+        if (userType === "tenant") {
+          navigation.navigate("TenantDashboard"); // You might still navigate to the tenant dashboard
+        } else if (userType === "landlord") {
+          navigation.navigate("LandlordDashboard"); // Or navigate to the landlord dashboard
+        }
+      } else {
+        // If registration failed
+        console.error("Sign-up failed:", response.data.message);
+        Alert.alert(
+          "Error",
+          "Sign-up failed. Please check your information and try again."
+        );
+      }
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      console.error("An unexpected error occurred:", error);
+      Alert.alert(
+        "Error",
+        "An unexpected error occurred. Please try again later."
+      );
+    }
+  };
+
   // Handle date change from date picker
   const handleDateChange = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -129,6 +182,7 @@ const SignUpScreen = ({ navigation }) => {
             mode="contained"
             style={styles.signupButton}
             labelStyle={styles.buttonText}
+            onPress={handleSignUp}
           >
             Sign Up
           </Button>
