@@ -58,7 +58,7 @@ const LandlordDashboard = ({ route, navigation }) => {
   };
 
   const handleLogout = () => {
-    navigation.navigate("Login");
+    navigation.navigate("LoginScreen");
   };
 
   const upcomingPayments = [

@@ -30,7 +30,7 @@ const TenantDashboard = ({ route, navigation }) => {
   };
 
   const handleLogout = () => {
-    navigation.navigate("Login");
+    navigation.navigate("LoginScreen");
   };
   const handlePayPortal = () => {
     navigation.navigate("TenantPaymentPortal"); // Adjust the route as necessary
